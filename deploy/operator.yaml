@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingdom-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: pingdom-operator
+  template:
+    metadata:
+      labels:
+        name: pingdom-operator
+    spec:
+      serviceAccountName: pingdom-operator
+      containers:
+        - name: pingdom-operator
+          # Replace this with the built image name
+          image: eu.gcr.io/wired-coder-260413/pingdom-operator:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PINGDOM_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: user
+            - name: PINGDOM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: password
+            - name: PINGDOM_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: key
+          args:
+            - -user=$(PINGDOM_USER)
+            - -password=$(PINGDOM_PASSWORD)
+            - -key=$(PINGDOM_KEY)
+          command:
+          - pingdom-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "pingdom-operator"

@@ -1,0 +1,36 @@
+apiVersion: pingdom.k8s/v1alpha1
+kind: Checks
+metadata:
+  namespace: default
+  name: eclectica.io
+  finalizers:
+  - cleanup.pingdom
+spec:
+  name: eclectica.io-check
+  
+  http:
+    name: eclectica.io-check # or something
+    hostname: eclectica.sh
+    encryption: true 
+    resolution: 1
+    paused: false
+    # - paused: false
+    # - sendnotificationwhendown: 1
+    # - notifyagainevery: 1
+    # - notifywhenbackup: 2
+    # - url: "https://eclectica.sh" # do not specify (port | hostname | url) together
+    # - port: 443
+    # - username: "killa"
+    # - password: "gorilla"
+    # - shouldcontain: "gold-chains"
+    # - shouldnotcontain: "ganstas"
+    # - postdata: "idontwannaobeyyouanymore"
+    # - requestheaders:
+    #   - X-Whats-Up: "not much"
+    # - integrationids: []
+    # - responsetime_threshold: 2
+    # - tags: "lobsters-anyone?"
+    # - probe_filters: "funnycomb"
+    # - userids: []
+    # - teamids: []
+    
