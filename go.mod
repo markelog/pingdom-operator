@@ -5,12 +5,16 @@ go 1.13
 require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-openapi/spec v0.19.0
+	github.com/golangci/golangci-lint v1.21.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20191116043053-66b7ad493a23 // indirect
 	github.com/maoueh/zap-pretty v0.1.1 // indirect
+	github.com/mgechev/revive v0.0.0-20191204011248-0422c5ce0031 // indirect
 	github.com/operator-framework/operator-sdk v0.12.0
 	github.com/redhat-cop/operator-utils v0.1.0
 	github.com/russellcardullo/go-pingdom v1.0.0
-	github.com/spf13/pflag v1.0.3
+	github.com/securego/gosec v0.0.0-20191119104125-df484bfa9e9f // indirect
+	github.com/spf13/pflag v1.0.5
+	github.com/unknwon/bra v0.0.0-20191020212106-9f09ca301444 // indirect
 	k8s.io/api v0.0.0
 	k8s.io/apimachinery v0.0.0
 	k8s.io/client-go v11.0.0+incompatible
