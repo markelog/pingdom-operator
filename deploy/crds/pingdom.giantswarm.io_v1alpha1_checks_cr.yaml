@@ -7,9 +7,13 @@ metadata:
   - cleanup.pingdom
 spec:
   name: eclectica.io-check
+  
+  # This could be either defined like this, or with k8s secrets
   user: big@dude.com
   password: oasdalirw!@asd.j
   key: ASdarfq3412SDFSD
+
+  # default is "https://api.pingdom.com/api/2.1"
   base-url: "https://alternative-address-to-pingdom-api.com"
   http:
     name: eclectica.io-check # or something
