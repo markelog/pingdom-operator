@@ -49,7 +49,6 @@ setup:
 	@kubectl create -f deploy/role_binding.yaml
 	@kubectl create -f deploy/operator.yaml
 
-
 destroy:
 	@echo "[+] destroy"
 	@kubectl delete -f deploy/operator.yaml
