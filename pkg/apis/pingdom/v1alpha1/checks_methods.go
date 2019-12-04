@@ -1,7 +1,16 @@
 package v1alpha1
 
 import (
+	"os"
+
 	"github.com/russellcardullo/go-pingdom/pingdom"
+)
+
+var (
+	envUser     = "PINGDOM_USER"
+	envPassword = "PINGDOM_PASSWORD"
+	envKey      = "PINGDOM_KEY"
+	envBaseURL  = "PINGDOM_BASE_URL"
 )
 
 // SetupHTTP setups HTTP check
@@ -34,12 +43,37 @@ func (checks *Checks) DeleteHTTP() error {
 
 // -- helpers --
 
+func (checks *Checks) getConfig() pingdom.ClientConfig {
+	user := checks.Spec.User
+	if user == "" {
+		user, _ = os.LookupEnv(envUser)
+	}
+
+	password := checks.Spec.Password
+	if password == "" {
+		password, _ = os.LookupEnv(envPassword)
+	}
+
+	key := checks.Spec.Key
+	if key == "" {
+		key, _ = os.LookupEnv(envKey)
+	}
+
+	baseURL := checks.Spec.BaseURL
+	if key == "" {
+		baseURL, _ = os.LookupEnv(envBaseURL)
+	}
+
+	return pingdom.ClientConfig{
+		User:     user,
+		Password: password,
+		APIKey:   key,
+		BaseURL:  baseURL,
+	}
+}
+
 func (checks *Checks) makeClient() (*pingdom.Client, error) {
-	return pingdom.NewClientWithConfig(pingdom.ClientConfig{
-		User:     checks.Spec.User,
-		Password: checks.Spec.Password,
-		APIKey:   checks.Spec.Key,
-	})
+	return pingdom.NewClientWithConfig(checks.getConfig())
 }
 
 func (checks *Checks) create(client *pingdom.Client) error {
@@ -58,6 +92,7 @@ func (checks *Checks) update(client *pingdom.Client) error {
 		checks.Status.ID,
 		convert(checks.Spec.HTTP),
 	)
+
 	if err != nil {
 		return err
 	}

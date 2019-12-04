@@ -7,7 +7,9 @@ metadata:
   - cleanup.pingdom
 spec:
   name: eclectica.io-check
-  
+  user: big@dude.com
+  password: oasdalirw!@asd.j
+  key: ASdarfq3412SDFSD
   http:
     name: eclectica.io-check # or something
     hostname: eclectica.sh
