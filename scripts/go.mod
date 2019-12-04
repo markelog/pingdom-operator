@@ -1,9 +1,8 @@
-module github.com/grafana/grafana/scripts/go
+module github.com/markelog/pingdom-operator/scripts
 
-go 1.12
+go 1.13
 
 require (
-	github.com/golangci/golangci-lint v1.17.1
-	github.com/mgechev/revive v0.0.0-20190815002930-e120712eba7c
-	github.com/securego/gosec v0.0.0-20190510081509-ee80733faf72
+	github.com/golangci/golangci-lint v1.21.0 // indirect
+	github.com/mgechev/revive v0.0.0-20191204011248-0422c5ce0031 // indirect
 )

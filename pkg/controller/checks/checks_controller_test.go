@@ -31,7 +31,7 @@ var createAndUpdateStub = httptest.NewServer(
 }
 `
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprintf(w, detailedCheckJSON)
+		fmt.Fprint(w, detailedCheckJSON)
 	}),
 )
 
