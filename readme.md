@@ -5,7 +5,6 @@
 ## Set up
 
 Assuming you already set up kubernetes config on your machine.
-
 Clone the repo –
 
 ```sh
@@ -13,17 +12,15 @@ $ git clone git@github.com:Nalum/pingdom-operator.git
 $ cd pingdom-operator
 ```
 
-Apply all suplementary kubernetes configs in order to set up the operator –
+Apply all supplementary kubernetes configs in order to set up the operator –
 
 ```sh
 $ make setup
 ```
 
-It is recommended to also set up secret for the check too, also see an [example](https://github.com/markelog/pingdom-operator/blob/master/deploy/example_secret.yaml). 
+It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can set up your credentials right in the check definition (see the last paragraph).
 
-But if you couldn't be bother with it :), you can set up your credentials right in the checks (the one above) definition.
-
-So execute either –
+Set up the deployment for the operator, so execute either –
 
 ```sh
 $ kubectl apply -f ./deploy/operator.yaml
@@ -35,14 +32,13 @@ Or without secrets with –
 $ kubectl apply -f ./deploy/operator_without_secret.yaml
 ```
 
-Set up pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) –
+Set up pingdom CRD –
 
 ```sh
 $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
 ```
 
-Now check out the an [example](https://github.com/markelog/pingdom-operator/blob/2a1b15d34086e48ed19a6bf85cc62b5a5c0baa47/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for a an actual check. Edit it to your pleasure. 
-
-Then apply your check and secret configs with `kubectl apply -f ...`. 
-
+Now check out the [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for an actual check. Edit it to your pleasure.
+Then apply your check and secret (you did used the secret, right?) configs with kubectl apply -f ....
 Done and done.
+
