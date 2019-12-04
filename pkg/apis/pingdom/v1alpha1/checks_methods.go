@@ -10,7 +10,6 @@ var (
 	envUser     = "PINGDOM_USER"
 	envPassword = "PINGDOM_PASSWORD"
 	envKey      = "PINGDOM_KEY"
-	envBaseURL  = "PINGDOM_BASE_URL"
 )
 
 // SetupHTTP setups HTTP check
@@ -59,16 +58,11 @@ func (checks *Checks) getConfig() pingdom.ClientConfig {
 		key, _ = os.LookupEnv(envKey)
 	}
 
-	baseURL := checks.Spec.BaseURL
-	if key == "" {
-		baseURL, _ = os.LookupEnv(envBaseURL)
-	}
-
 	return pingdom.ClientConfig{
 		User:     user,
 		Password: password,
 		APIKey:   key,
-		BaseURL:  baseURL,
+		BaseURL:  checks.Spec.BaseURL,
 	}
 }
 

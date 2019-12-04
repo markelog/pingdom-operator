@@ -15,11 +15,11 @@ type ChecksSpec struct {
 
 	// You don't have to define this, in fact, it's better to use
 	// kubernetes secret for these settings, you can set them up
-	// as env variables - "PINGDOM_(USER|PASSWORD|KEY|BASE_URL)"
+	// as env variables - "PINGDOM_(USER|PASSWORD|KEY)"
 	User     string `json:"user"`
 	Password string `json:"password"`
 	Key      string `json:"key"`
-	BaseURL  string `json:"base-url"`
+	BaseURL  string `json:"base-url,omitempty"`
 
 	HTTP *HTTPCheck `json:"http"`
 }
