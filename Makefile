@@ -13,14 +13,6 @@ test:
 	@echo "[+] test"
 	@go test $(GO_FILES)
 
-build:
-	@echo "[+] build"
-	@go build -ldflags "-X main.version=$(TAG)" -o pingdom-operator .
-
-clean:
-	@echo "[+] clean"
-	@rm ./pingdom-operator
-
 pack:
 	@echo "[+] pack"
 	GOOS=linux make build
