@@ -236,7 +236,7 @@ func TestChecksControllerDelete(t *testing.T) {
 		t.Fatalf("get check: (%v)", err)
 	}
 
-	if test.Status.ID != 0 {
+	if test.Status.ID == 0 {
 		t.Fatal("pingdom id is not removed")
 	}
 }
