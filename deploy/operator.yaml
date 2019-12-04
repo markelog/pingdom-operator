@@ -15,8 +15,7 @@ spec:
       serviceAccountName: pingdom-operator
       containers:
         - name: pingdom-operator
-          # Replace this with the built image name
-          image: eu.gcr.io/wired-coder-260413/pingdom-operator:latest
+          image: markelog/pingdom-operator:0.0.1
           imagePullPolicy: IfNotPresent
           command:
           - pingdom-operator

@@ -9,16 +9,18 @@ spec:
   name: eclectica.io-check
   
   # This could be either defined like this, or with k8s secrets
-  user: big@dude.com
+  user: killa@gorilla.com
   password: oasdalirw!@asd.j
   key: ASdarfq3412SDFSD
+
   # base-url: "https://api.pingdom.com/api/2.1"
   http:
     name: eclectica.io-check # or something
     hostname: eclectica.sh
     encryption: true 
     resolution: 1
-    paused: false
+
+    # You can also define any of these -  
     # - paused: false
     # - sendnotificationwhendown: 1
     # - notifyagainevery: 1

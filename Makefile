@@ -1,7 +1,6 @@
 .PHONY: install test pack deploy ship revive golangci-lint sec vet
 
 TAG ?= $(shell git rev-list HEAD --max-count=1 --abbrev-commit)
-PRJ ?= wired-coder-260413
 GO_FILES ?= ./...
 GO = GO111MODULE=on go
 
@@ -16,33 +15,31 @@ test:
 pack:
 	@echo "[+] pack"
 	GOOS=linux make build
-	operator-sdk build $(PRJ)/pingdom-operator
+	operator-sdk build markelog/pingdom-operator
 
 tag: pack
 	@echo "[+] tag"
-	@docker tag $(PRJ)/pingdom-operator eu.gcr.io/$(PRJ)/pingdom-operator:$(TAG)
+	@docker tag markelog/pingdom-operator markelog/pingdom-operator:$(TAG)
 
 upload: tag
 	@echo "[+] upload"
-	@docker push eu.gcr.io/$(PRJ)/pingdom-operator:$(TAG)
+	@docker push markelog/pingdom-operator:$(TAG)
 
 ship: test upload
 
-# ---
+# Setup
 
 setup:
 	@echo "[+] setup"
 	@kubectl create -f deploy/service_account.yaml
 	@kubectl create -f deploy/role.yaml
 	@kubectl create -f deploy/role_binding.yaml
-	@kubectl create -f deploy/operator.yaml
 
 destroy:
 	@echo "[+] destroy"
-	@kubectl delete -f deploy/operator.yaml
+	@kubectl delete -f deploy/service_account.yaml
 	@kubectl delete -f deploy/role_binding.yaml
 	@kubectl delete -f deploy/role.yaml
-	@kubectl delete -f deploy/service_account.yaml
 
 # Lint
 

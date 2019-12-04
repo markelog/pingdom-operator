@@ -6,31 +6,37 @@
 
 Assuming you already set up kubernetes config on your machine
 
-Clone the repo
+Clone the repo –
 
 ```sh
 $ git clone git@github.com:Nalum/pingdom-operator.git
 $ cd pingdom-operator
 ```
 
-Apply all suplementary kubernetes configs in order to set up the operator
+Apply all suplementary kubernetes configs in order to set up the operator –
 
 ```sh
 $ make setup
 ```
 
-Set up pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+Set up pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) –
 
 ```sh
 $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
 ```
 
+It is recommended to also set up secret for the check too, also see an [example](https://github.com/markelog/pingdom-operator/blob/master/deploy/example_secret.yaml). But if you couldn't be bother with it :), you can set up your credentials right in the checks (the one above) definition.
+
+So execute either –
 ```sh
-$ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
+$ kubectl apply -f ./deploy/operator.yaml
+```
+
+Or without secrets with –
+```sh
+$ kubectl apply -f ./deploy/operator_without_secret.yaml
 ```
 
 Now check out the an [example](https://github.com/markelog/pingdom-operator/blob/2a1b15d34086e48ed19a6bf85cc62b5a5c0baa47/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for a check. Edit it to your pleasure.
 
-It is recommended to also set up secret for the check too, also see an [example](https://github.com/markelog/pingdom-operator/blob/master/deploy/example_secret.yaml). But if you couldn't be bother with it :), you can set up your credentials right in the checks (the one above) definition.
-
-Then apply your configs with `kubectl apply -f ...`. Done and done
+Then apply your configs with `kubectl apply -f ...`. Done and done.
