@@ -90,18 +90,18 @@ func TestChecksControllerCreate(t *testing.T) {
 
 	_, err := r.Reconcile(req)
 	if err != nil {
-		t.Fatalf("reconcile: (%v)", err)
+		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
-		t.Fatalf("get check: (%v)", err)
+		t.Fatalf("Get check: (%v)", err)
 	}
 
 	if test.Status.ID != 123456 {
-		t.Fatal("pingdom id is wrong")
+		t.Fatal("Pingdom ID is wrong")
 	}
 }
 
@@ -157,18 +157,18 @@ func TestChecksControllerUpdate(t *testing.T) {
 
 	_, err := r.Reconcile(req)
 	if err != nil {
-		t.Fatalf("reconcile: (%v)", err)
+		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
-		t.Fatalf("get check: (%v)", err)
+		t.Fatalf("Get check: (%v)", err)
 	}
 
 	if test.Status.ID != 1 {
-		t.Fatal("pingdom id is wrong")
+		t.Fatal("Pingdom ID is wrong")
 	}
 }
 func TestChecksControllerDelete(t *testing.T) {
@@ -226,18 +226,18 @@ func TestChecksControllerDelete(t *testing.T) {
 
 	_, err := r.Reconcile(req)
 	if err != nil {
-		t.Fatalf("reconcile: (%v)", err)
+		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
-		t.Fatalf("get check: (%v)", err)
+		t.Fatalf("Get check: (%v)", err)
 	}
 
 	if test.Status.ID == 0 {
-		t.Fatal("pingdom id is not removed")
+		t.Fatal("Pingdom ID is not removed")
 	}
 }
 
@@ -298,17 +298,17 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 
 	_, err := r.Reconcile(req)
 	if err != nil {
-		t.Fatalf("reconcile: (%v)", err)
+		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
-		t.Fatalf("get check: (%v)", err)
+		t.Fatalf("Get check: (%v)", err)
 	}
 
 	if test.Status.ID != 1 {
-		t.Fatal("pingdom id was removed")
+		t.Fatal("Pingdom ID was removed")
 	}
 }
