@@ -13,9 +13,13 @@ type HTTPCheck pingdom.HttpCheck
 type ChecksSpec struct {
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
 
+	// You don't have to define this, in fact, it's better to use
+	// kubernetes secret for these settings, you can set them up
+	// as env variables - "PINGDOM_(USER|PASSWORD|KEY|BASE_URL)"
 	User     string `json:"user"`
 	Password string `json:"password"`
 	Key      string `json:"key"`
+	BaseURL  string `json:"base-url"`
 
 	HTTP *HTTPCheck `json:"http"`
 }

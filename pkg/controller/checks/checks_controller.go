@@ -2,6 +2,7 @@ package checks
 
 import (
 	"context"
+	"strings"
 
 	pingdomv1alpha1 "github.com/markelog/pingdom-operator/pkg/apis/pingdom/v1alpha1"
 	"github.com/redhat-cop/operator-utils/pkg/util"
@@ -18,11 +19,14 @@ import (
 )
 
 const (
-	name      = "controller_checks"
-	finalizer = "cleanup.pingdom"
+	// Name is the name of the controller
+	Name = "controller_checks"
+
+	// Finalizer is the name of the controllers finalizer
+	Finalizer = "cleanup.pingdom"
 )
 
-var log = logf.Log.WithName(name)
+var log = logf.Log.WithName(Name)
 
 /**
 * USER ACTION REQUIRED: This is a scaffold file intended for the user to modify with their own Controller
@@ -54,7 +58,6 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 		return err
 	}
 
-	// TODO(user): Modify this to be the types you create that are owned by the primary resource
 	// Watch for changes to secondary resource Pods and requeue the owner Checks
 	err = c.Watch(&source.Kind{Type: &corev1.Pod{}}, &handler.EnqueueRequestForOwner{
 		IsController: true,
@@ -94,7 +97,6 @@ func (r *ReconcileChecks) Reconcile(request reconcile.Request) (reconcile.Result
 	if err != nil {
 		if errors.IsNotFound(err) {
 			// Request object not found, could have been deleted after reconcile request.
-			// Owned objects are automatically garbage collected. For additional cleanup logic use finalizers.
 			// Return and don't requeue
 			return reconcile.Result{}, nil
 		}
@@ -105,18 +107,24 @@ func (r *ReconcileChecks) Reconcile(request reconcile.Request) (reconcile.Result
 	// Remove the check
 	if util.IsBeingDeleted(instance) {
 
-		// Remove it, yeah, but only if we have an finalizer
-		if !util.HasFinalizer(instance, finalizer) {
+		// Remove it, yeah, but only if we have an Finalizer
+		if !util.HasFinalizer(instance, Finalizer) {
 			return reconcile.Result{}, nil
 		}
+
 		reqLogger.Info("Remove HTTP check")
-
 		if err := instance.DeleteHTTP(); err != nil {
-			reqLogger.Error(err, "Couldn't remove checker")
-			return reconcile.Result{}, nil
+			// "Invalid check identifier" error means we have deleted
+			// the check with other means
+			if !strings.Contains(err.Error(), "Invalid check identifier") {
+				reqLogger.Error(err, "Couldn't remove checker")
+				return reconcile.Result{}, nil
+			}
+
+			reqLogger.Info("Seems you have removed the check already?")
 		}
 
-		util.RemoveFinalizer(instance, finalizer)
+		util.RemoveFinalizer(instance, Finalizer)
 
 		err := r.client.Update(context.TODO(), instance)
 		if err != nil {
@@ -137,4 +145,3 @@ func (r *ReconcileChecks) Reconcile(request reconcile.Request) (reconcile.Result
 
 	return reconcile.Result{}, nil
 }
-

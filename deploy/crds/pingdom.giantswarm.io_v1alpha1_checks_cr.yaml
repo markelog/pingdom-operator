@@ -10,6 +10,7 @@ spec:
   user: big@dude.com
   password: oasdalirw!@asd.j
   key: ASdarfq3412SDFSD
+  base-url: "https://alternative-address-to-pingdom-api.com"
   http:
     name: eclectica.io-check # or something
     hostname: eclectica.sh
