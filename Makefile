@@ -62,7 +62,7 @@ scripts/bin/gosec: scripts/go.mod
 
 revive: scripts/bin/revive
 	@echo "lint via revive"
-	scripts/bin/revive \
+	@scripts/bin/revive \
 		-formatter stylish \
 		-exclude ./vendor/... \
 		-exclude pkg/apis/pingdom/v1alpha1/zz_generated.openapi.go \
