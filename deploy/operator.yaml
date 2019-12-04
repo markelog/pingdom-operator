@@ -32,3 +32,18 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "pingdom-operator"
+            - name: PINGDOM_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: user
+            - name: PINGDOM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: password
+            - name: PINGDOM_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pingdom-operator
+                  key: key

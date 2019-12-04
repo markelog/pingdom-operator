@@ -1,9 +1,9 @@
-.PHONY: install test build clean pack deploy ship revive golangci-lint sec vet
+.PHONY: install test pack deploy ship revive golangci-lint sec vet
 
 TAG ?= $(shell git rev-list HEAD --max-count=1 --abbrev-commit)
-PRJ ?=
-GO = GO111MODULE=on go
+PRJ ?= wired-coder-260413
 GO_FILES ?= ./...
+GO = GO111MODULE=on go
 
 install:
 	@echo "[+] install"
@@ -16,21 +16,17 @@ test:
 pack:
 	@echo "[+] pack"
 	GOOS=linux make build
-	docker build -t $(PRJ)/pingdom-operator:$(TAG) .
+	operator-sdk build $(PRJ)/pingdom-operator
 
-tag:
+tag: pack
 	@echo "[+] tag"
-	@docker tag $(PRJ)/pingdom-operator:$(TAG) eu.gcr.io/$(PRJ)/pingdom-operator:$(TAG)
+	@docker tag $(PRJ)/pingdom-operator eu.gcr.io/$(PRJ)/pingdom-operator:$(TAG)
 
-upload: pack tag
+upload: tag
 	@echo "[+] upload"
 	@docker push eu.gcr.io/$(PRJ)/pingdom-operator:$(TAG)
 
-deploy:
-	@echo "[+] deploy"
-	@kubectl apply -f ./examples
-
-ship: test pack upload deploy clean
+ship: test upload
 
 # ---
 
