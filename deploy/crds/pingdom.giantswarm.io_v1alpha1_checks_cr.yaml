@@ -12,9 +12,7 @@ spec:
   user: big@dude.com
   password: oasdalirw!@asd.j
   key: ASdarfq3412SDFSD
-
-  # default is "https://api.pingdom.com/api/2.1"
-  base-url: "https://alternative-address-to-pingdom-api.com"
+  # base-url: "https://api.pingdom.com/api/2.1"
   http:
     name: eclectica.io-check # or something
     hostname: eclectica.sh
