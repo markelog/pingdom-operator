@@ -8,7 +8,7 @@ Assuming you already set up kubernetes config on your machine.
 Clone the repo –
 
 ```sh
-$ git clone git@github.com:Nalum/pingdom-operator.git
+$ git clone git@github.com:markelog/pingdom-operator.git
 $ cd pingdom-operator
 ```
 
