@@ -28,11 +28,6 @@ const (
 
 var log = logf.Log.WithName(Name)
 
-/**
-* USER ACTION REQUIRED: This is a scaffold file intended for the user to modify with their own Controller
-* business logic.  Delete these comments after modifying this file.*
- */
-
 // Add creates a new Checks Controller and adds it to the Manager. The Manager will set fields on the Controller
 // and Start it when the Manager is Started.
 func Add(mgr manager.Manager) error {
@@ -107,7 +102,7 @@ func (r *ReconcileChecks) Reconcile(request reconcile.Request) (reconcile.Result
 	// Remove the check
 	if util.IsBeingDeleted(instance) {
 
-		// Remove it, yeah, but only if we have an Finalizer
+		// Remove it, yeah, but only if we have a finalizer
 		if !util.HasFinalizer(instance, Finalizer) {
 			return reconcile.Result{}, nil
 		}

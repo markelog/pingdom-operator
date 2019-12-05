@@ -26,7 +26,7 @@ func (checks *Checks) SetupHTTP() error {
 	return checks.create(client)
 }
 
-// DeleteHTTP delete HTTP check
+// DeleteHTTP deletes HTTP check
 func (checks *Checks) DeleteHTTP() error {
 	client, err := checks.makeClient()
 	if err != nil {
