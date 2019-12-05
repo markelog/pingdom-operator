@@ -39,6 +39,6 @@ $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
 ```
 
 Now check out the [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for an actual check. Edit it to your pleasure.
-Then apply your check and secret (you did used the secret, right?) configs with kubectl apply -f ....
+Then apply your check and secret (you did used the secret, right?) configs with `kubectl apply -f ....`
 Done and done.
 
