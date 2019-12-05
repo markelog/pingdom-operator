@@ -5,7 +5,7 @@
 ## Set up
 
 Assuming you already set up kubernetes config on your machine.
-Clone the repo –
+Clone the repo:
 
 ```sh
 $ git clone git@github.com:markelog/pingdom-operator.git
@@ -20,19 +20,19 @@ $ make setup
 
 It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can set up your credentials right in the check definition (see the last paragraph).
 
-Set up the deployment for the operator, so execute either –
+Set up the deployment for the operator, so execute either
 
 ```sh
 $ kubectl apply -f ./deploy/operator.yaml
 ```
 
-Or without secrets with –
+Or without secrets with
 
 ```sh
 $ kubectl apply -f ./deploy/operator_without_secret.yaml
 ```
 
-Set up pingdom CRD –
+Set up pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) –
 
 ```sh
 $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
