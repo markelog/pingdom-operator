@@ -20,24 +20,24 @@ import (
 )
 
 var (
-  namespace = "pingdom"
+	namespace = "pingdom"
 )
 
 func createRequest(check *checks1alpha1.Checks) (*ReconcileChecks, reconcile.Request) {
-  objs := []runtime.Object{check}
+	objs := []runtime.Object{check}
 
 	scheme.Scheme.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
 
 	client := fake.NewFakeClient(objs...)
-  checks := &ReconcileChecks{client: client, scheme: scheme.Scheme}
-  req := reconcile.Request{
+	checks := &ReconcileChecks{client: client, scheme: scheme.Scheme}
+	req := reconcile.Request{
 		NamespacedName: types.NamespacedName{
 			Name:      Name,
 			Namespace: namespace,
 		},
-  }
-  
-  return checks, req
+	}
+
+	return checks, req
 }
 
 var createAndUpdateStub = httptest.NewServer(
@@ -80,9 +80,9 @@ func TestChecksControllerCreate(t *testing.T) {
 				Resolution: 1,
 			},
 		},
-  }
+	}
 
-  checks, req := createRequest(check)
+	checks, req := createRequest(check)
 	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
@@ -126,7 +126,7 @@ func TestChecksControllerUpdate(t *testing.T) {
 		},
 	}
 
-  checks, req := createRequest(check)
+	checks, req := createRequest(check)
 	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
@@ -172,7 +172,7 @@ func TestChecksControllerDelete(t *testing.T) {
 		},
 	}
 
-  checks, req := createRequest(check)
+	checks, req := createRequest(check)
 	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
@@ -221,7 +221,7 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 		},
 	}
 
-  checks, req := createRequest(check)
+	checks, req := createRequest(check)
 	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
