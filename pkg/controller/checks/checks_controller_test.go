@@ -19,6 +19,27 @@ import (
 	checks1alpha1 "github.com/markelog/pingdom-operator/pkg/apis/pingdom/v1alpha1"
 )
 
+var (
+  namespace = "pingdom"
+)
+
+func createRequest(check *checks1alpha1.Checks) (*ReconcileChecks, reconcile.Request) {
+  objs := []runtime.Object{check}
+
+	scheme.Scheme.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
+
+	client := fake.NewFakeClient(objs...)
+  checks := &ReconcileChecks{client: client, scheme: scheme.Scheme}
+  req := reconcile.Request{
+		NamespacedName: types.NamespacedName{
+			Name:      Name,
+			Namespace: namespace,
+		},
+  }
+  
+  return checks, req
+}
+
 var createAndUpdateStub = httptest.NewServer(
 	http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -42,10 +63,6 @@ var deleteStub = httptest.NewServer(
 )
 
 func TestChecksControllerCreate(t *testing.T) {
-	var (
-		namespace = "pingdom"
-	)
-
 	check := &checks1alpha1.Checks{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      Name,
@@ -63,30 +80,16 @@ func TestChecksControllerCreate(t *testing.T) {
 				Resolution: 1,
 			},
 		},
-	}
+  }
 
-	objs := []runtime.Object{check}
-
-	s := scheme.Scheme
-	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
-
-	cl := fake.NewFakeClient(objs...)
-	r := &ReconcileChecks{client: cl, scheme: s}
-
-	req := reconcile.Request{
-		NamespacedName: types.NamespacedName{
-			Name:      Name,
-			Namespace: namespace,
-		},
-	}
-
-	_, err := r.Reconcile(req)
+  checks, req := createRequest(check)
+	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	test := &v1alpha1.Checks{}
-	err = r.client.Get(context.TODO(), req.NamespacedName, test)
+	err = checks.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
 		t.Fatalf("Get check: (%v)", err)
 	}
@@ -123,27 +126,14 @@ func TestChecksControllerUpdate(t *testing.T) {
 		},
 	}
 
-	objs := []runtime.Object{check}
-
-	s := scheme.Scheme
-	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
-
-  cl := fake.NewFakeClient(objs...)
-
-	req := reconcile.Request{
-		NamespacedName: types.NamespacedName{
-			Name:      Name,
-			Namespace: namespace,
-		},
-	}
-
-	_, err := r.Reconcile(req)
+  checks, req := createRequest(check)
+	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	test := &v1alpha1.Checks{}
-	err = r.client.Get(context.TODO(), req.NamespacedName, test)
+	err = checks.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
 		t.Fatalf("Get check: (%v)", err)
 	}
@@ -182,28 +172,14 @@ func TestChecksControllerDelete(t *testing.T) {
 		},
 	}
 
-	objs := []runtime.Object{check}
-
-	s := scheme.Scheme
-	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
-
-	cl := fake.NewFakeClient(objs...)
-	r := &ReconcileChecks{client: cl, scheme: s}
-
-	req := reconcile.Request{
-		NamespacedName: types.NamespacedName{
-			Name:      Name,
-			Namespace: namespace,
-		},
-	}
-
-	_, err := r.Reconcile(req)
+  checks, req := createRequest(check)
+	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	test := &v1alpha1.Checks{}
-	err = r.client.Get(context.TODO(), req.NamespacedName, test)
+	err = checks.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
 		t.Fatalf("Get check: (%v)", err)
 	}
@@ -245,28 +221,14 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 		},
 	}
 
-	objs := []runtime.Object{check}
-
-	s := scheme.Scheme
-	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
-
-	cl := fake.NewFakeClient(objs...)
-	r := &ReconcileChecks{client: cl, scheme: s}
-
-	req := reconcile.Request{
-		NamespacedName: types.NamespacedName{
-			Name:      Name,
-			Namespace: namespace,
-		},
-	}
-
-	_, err := r.Reconcile(req)
+  checks, req := createRequest(check)
+	_, err := checks.Reconcile(req)
 	if err != nil {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
 	test := &v1alpha1.Checks{}
-	err = r.client.Get(context.TODO(), req.NamespacedName, test)
+	err = checks.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
 		t.Fatalf("Get check: (%v)", err)
 	}
