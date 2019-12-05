@@ -18,7 +18,7 @@ Apply all supplementary kubernetes configs in order to set up the operator –
 $ make setup
 ```
 
-It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can set up your credentials right in the check definition (see the last paragraph).
+It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can set up your credentials right in the check definition.
 
 Set up the deployment for the operator, so execute either
 
