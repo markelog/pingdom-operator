@@ -18,7 +18,7 @@ Apply all supplementary kubernetes configs in order to set up the operator –
 $ make setup
 ```
 
-It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can put credentials right into the check definition.
+It is recommended to also set up secret for the `check` too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can put credentials right into the `check` definition.
 
 Apply the deployment for the operator, so execute either
 
@@ -38,7 +38,7 @@ Create pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-e
 $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
 ```
 
-Now check out the [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for an actual check. Edit it to your pleasure.
-Then apply your check and secret (you did used the secret, right?) configs with `kubectl apply -f ....`
+Now examine the [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/crds/pingdom.giantswarm.io_v1alpha1_checks_cr.yaml) for an `check` configuration. Edit it to your pleasure.
+Then apply your `check` and secret (you did used the secret, right?) configs with `kubectl apply -f ....`
 Done and done.
 
