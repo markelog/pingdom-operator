@@ -46,7 +46,6 @@ func TestChecksControllerCreate(t *testing.T) {
 		namespace = "pingdom"
 	)
 
-	// A Checks object with metadata and spec
 	check := &checks1alpha1.Checks{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      Name,
@@ -66,21 +65,14 @@ func TestChecksControllerCreate(t *testing.T) {
 		},
 	}
 
-	// Objects to track in the fake client
 	objs := []runtime.Object{check}
 
-	// Register operator types with the runtime scheme
 	s := scheme.Scheme
 	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
 
-	// Create a fake client to mock API calls
 	cl := fake.NewFakeClient(objs...)
-
-	// Create a ReconcileChecks object with the scheme and fake client
 	r := &ReconcileChecks{client: cl, scheme: s}
 
-	// Mock request to simulate Reconcile() being called on an event for a
-	// watched resource
 	req := reconcile.Request{
 		NamespacedName: types.NamespacedName{
 			Name:      Name,
@@ -93,7 +85,6 @@ func TestChecksControllerCreate(t *testing.T) {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
-	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
@@ -110,7 +101,6 @@ func TestChecksControllerUpdate(t *testing.T) {
 		namespace = "pingdom"
 	)
 
-	// A Checks object with metadata and spec
 	check := &checks1alpha1.Checks{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      Name,
@@ -133,21 +123,13 @@ func TestChecksControllerUpdate(t *testing.T) {
 		},
 	}
 
-	// Objects to track in the fake client
 	objs := []runtime.Object{check}
 
-	// Register operator types with the runtime scheme
 	s := scheme.Scheme
 	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
 
-	// Create a fake client to mock API calls
-	cl := fake.NewFakeClient(objs...)
+  cl := fake.NewFakeClient(objs...)
 
-	// Create a ReconcileChecks object with the scheme and fake client
-	r := &ReconcileChecks{client: cl, scheme: s}
-
-	// Mock request to simulate Reconcile() being called on an event for a
-	// watched resource
 	req := reconcile.Request{
 		NamespacedName: types.NamespacedName{
 			Name:      Name,
@@ -160,7 +142,6 @@ func TestChecksControllerUpdate(t *testing.T) {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
-	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
@@ -177,7 +158,6 @@ func TestChecksControllerDelete(t *testing.T) {
 		now       = metav1.NewTime(time.Now())
 	)
 
-	// A Checks object with metadata and spec
 	check := &checks1alpha1.Checks{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:              Name,
@@ -202,21 +182,14 @@ func TestChecksControllerDelete(t *testing.T) {
 		},
 	}
 
-	// Objects to track in the fake client
 	objs := []runtime.Object{check}
 
-	// Register operator types with the runtime scheme
 	s := scheme.Scheme
 	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
 
-	// Create a fake client to mock API calls
 	cl := fake.NewFakeClient(objs...)
-
-	// Create a ReconcileChecks object with the scheme and fake client
 	r := &ReconcileChecks{client: cl, scheme: s}
 
-	// Mock request to simulate Reconcile() being called on an event for a
-	// watched resource
 	req := reconcile.Request{
 		NamespacedName: types.NamespacedName{
 			Name:      Name,
@@ -229,7 +202,6 @@ func TestChecksControllerDelete(t *testing.T) {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
-	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
@@ -247,7 +219,6 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 		now       = metav1.NewTime(time.Now())
 	)
 
-	// A Checks object with metadata and spec
 	check := &checks1alpha1.Checks{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:              Name,
@@ -274,21 +245,14 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 		},
 	}
 
-	// Objects to track in the fake client
 	objs := []runtime.Object{check}
 
-	// Register operator types with the runtime scheme
 	s := scheme.Scheme
 	s.AddKnownTypes(checks1alpha1.SchemeGroupVersion, check)
 
-	// Create a fake client to mock API calls
 	cl := fake.NewFakeClient(objs...)
-
-	// Create a ReconcileChecks object with the scheme and fake client
 	r := &ReconcileChecks{client: cl, scheme: s}
 
-	// Mock request to simulate Reconcile() being called on an event for a
-	// watched resource
 	req := reconcile.Request{
 		NamespacedName: types.NamespacedName{
 			Name:      Name,
@@ -301,7 +265,6 @@ func TestChecksControllerDeleteWithoutFinalizer(t *testing.T) {
 		t.Fatalf("Reconcile: (%v)", err)
 	}
 
-	// Check if pingdom id has been created
 	test := &v1alpha1.Checks{}
 	err = r.client.Get(context.TODO(), req.NamespacedName, test)
 	if err != nil {
