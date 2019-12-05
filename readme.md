@@ -18,9 +18,9 @@ Apply all supplementary kubernetes configs in order to set up the operator –
 $ make setup
 ```
 
-It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can set up your credentials right in the check definition.
+It is recommended to also set up secret for the check too (see an [example](https://github.com/markelog/pingdom-operator/blob/8b64fad921dbaf455b11f13f48f81b2abc7f5fa8/deploy/example_secret.yaml)). But if you couldn't be bothered with it :), you can put credentials right into the check definition.
 
-Set up the deployment for the operator, so execute either
+Apply the deployment for the operator, so execute either
 
 ```sh
 $ kubectl apply -f ./deploy/operator.yaml
@@ -32,7 +32,7 @@ Or without secrets with
 $ kubectl apply -f ./deploy/operator_without_secret.yaml
 ```
 
-Set up pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) –
+Create pingdom [CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) –
 
 ```sh
 $ kubectl apply -f ./deploy/crds/pingdom.giantswarm.io_checks_crd.yaml
